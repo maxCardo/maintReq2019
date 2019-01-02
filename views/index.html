@@ -16,29 +16,13 @@
       <a href="#home" class="w3-bar-item w3-button w3-wide">
         <span style="font-family:Brush Script MT; font-size: 20px">The Levanon Group</span> <span style=" font-family: Brush Script MT;font-size: 10px">LLC</span>
       </a>
-      <!-- Right-sided navbar links -->
-      <!-- <div class="w3-right w3-tiny w3-hide-small" > -->
-        <!-- <a href="#about" class="w3-bar-item w3-button">ABOUT US</a> -->
-        <!-- <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-home"></i> APARTMENT RENTAL CENTER</a> -->
-        <!-- <a href="#resident" class="w3-bar-item w3-button"><i class="fa fa-th"></i> CURRENT RESIDENT</a>
-        <a href="#pros" class="w3-bar-item w3-button"><i class="fa fa-wrench"></i> SERVICE PRO'S.. JOIN THE NETWORK</a> -->
-        <!-- <a href="#buy" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> SELL YOUR PROPERTY AT FULL VALUE</a> -->
-        <!-- <a href="contactGF.html" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT US</a>
-      </div> -->
-      <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
-      <!-- <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-        <i class="fa fa-bars"></i>
-      </a> -->
     </div>
   </div>
 
   <!-- Sidebar on small screens when clicking the menu icon -->
   <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-    <!-- <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About Us</a>
-    <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">Apartment Rentals</a>
-    <a href="#buy" onclick="w3_close()" class="w3-bar-item w3-button">Sell Your Property</a> -->
     <a href="#resident" onclick="w3_close()" class="w3-bar-item w3-button">Current Resident</a>
     <a href="contactGF.html" onclick="w3_close()" class="w3-bar-item w3-button">Contact Us</a>
   </nav>
@@ -62,7 +46,7 @@
         <div class="form-group">
           <label for="property">Property Location</label>
           <!-- TODO: make property location dynamic -->
-          <select class="form-control" name="property" placeholder= "y ">
+          <select class="form-control" name="property" placeholder= "y">
             <option disabled selected value="">--Select a Property--</option>
             <option value="1500 Fallowfield">1500 Fallowfield Ave</option>
             <option value="1214 Wynne Ave">1214 Wynne Ave</option>
@@ -86,6 +70,7 @@
         <div class="form-group">
           <label for="serviceType">Type of Service</label>
           <select class="form-control" name="serviceType">
+            <option disabled selected value="">--Select a Service Type--</option>
             <option>General Maintenance</option>
             <option>HVAC</option>
             <option>Plumbing</option>
@@ -123,49 +108,49 @@
             </thead>
             <tr>
               <th scope="row">Monday</th>
-              <td> <input type="checkbox" name="1m" value=""> </td>
-              <td> <input type="checkbox" name="1a" value=""> </td>
-              <td> <input type="checkbox" name="1e" value=""> </td>
+              <td> <input type="checkbox" name="1m" value="true"> </td>
+              <td> <input type="checkbox" name="1a" value="true"> </td>
+              <td> <input type="checkbox" name="1e" value="true"> </td>
             </tr>
             <tr>
               <th scope="row">Tuesday</th>
-              <td> <input type="checkbox" name="1m" value=""> </td>
-              <td> <input type="checkbox" name="1a" value=""> </td>
-              <td> <input type="checkbox" name="1e" value=""> </td>
+              <td> <input type="checkbox" name="2m" value="true"> </td>
+              <td> <input type="checkbox" name="2a" value="true"> </td>
+              <td> <input type="checkbox" name="2e" value="true"> </td>
             </tr>
             <tr>
               <th scope="row">Wednesday</th>
-              <td> <input type="checkbox" name="1m" value=""> </td>
-              <td> <input type="checkbox" name="1a" value=""> </td>
-              <td> <input type="checkbox" name="1e" value=""> </td>
+              <td> <input type="checkbox" name="3m" value="true"> </td>
+              <td> <input type="checkbox" name="3a" value="true"> </td>
+              <td> <input type="checkbox" name="3e" value="true"> </td>
             </tr>
             <tr>
               <th scope="row">Thursday</th>
-              <td> <input type="checkbox" name="1m" value=""> </td>
-              <td> <input type="checkbox" name="1a" value=""> </td>
-              <td> <input type="checkbox" name="1e" value=""> </td>
+              <td> <input type="checkbox" name="4m" value="true"> </td>
+              <td> <input type="checkbox" name="4a" value="true"> </td>
+              <td> <input type="checkbox" name="4e" value="true"> </td>
             </tr>
             <tr>
               <th scope="row">Friday</th>
-              <td> <input type="checkbox" name="1m" value=""> </td>
-              <td> <input type="checkbox" name="1a" value=""> </td>
-              <td> <input type="checkbox" name="1e" value=""> </td>
+              <td> <input type="checkbox" name="5m" value="true"> </td>
+              <td> <input type="checkbox" name="5a" value="true"> </td>
+              <td> <input type="checkbox" name="5e" value="true"> </td>
             </tr>
             <tr>
               <th scope="row">Saturday</th>
-              <td> <input type="checkbox" name="1m" value=""> </td>
-              <td> <input type="checkbox" name="1a" value=""> </td>
-              <td> <input type="checkbox" name="1e" value=""> </td>
+              <td> <input type="checkbox" name="6m" value="true"> </td>
+              <td> <input type="checkbox" name="6a" value="true"> </td>
+              <td> <input type="checkbox" name="6e" value="true"> </td>
             </tr>
             <tr>
               <th scope="row">Sunday</th>
-              <td> <input type="checkbox" name="1m" value=""> </td>
-              <td> <input type="checkbox" name="1a" value=""> </td>
-              <td> <input type="checkbox" name="1e" value=""> </td>
+              <td> <input type="checkbox" name="7m" value="true"> </td>
+              <td> <input type="checkbox" name="7a" value="true"> </td>
+              <td> <input type="checkbox" name="7e" value="true"> </td>
             </tr>
           </table>
           <button onclick="pageTurn('p3', 'p2')" class="btn btn-default" type="button" name="back">Back</button>
-          <button class="btn btn-default" type="submit" name="submit">Submit</button>
+          <button class="btn btn-default" type="submit">Submit</button>
         </div>
       </div>
     </form>
