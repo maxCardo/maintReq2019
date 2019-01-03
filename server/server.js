@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 const {insertDB} = require('./DB/dbConnect');
+const {sendSMS} = require('./assets/twilio');
 
 const publicPath = path.join(__dirname, '../public');
 const views = path.join(__dirname, '../views');
