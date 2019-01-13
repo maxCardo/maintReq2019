@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<!--  bootstrap forms helop page https://getbootstrap.com/docs/4.0/components/forms/-->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>schedule Work Order</title>
+  </head>
+  <body>
+<div class="container">
+  <h3>Service Request Schedule Form</h3>
+  <form class="" action="/sch" method="post">
+    <div class="form-group">
+      <label for="serviceID">Service ID: <span id="serviceID"></span></label>
+    </div>
+    <div class="form-group">
+      <label for="vendorName">Vendor Name</label>
+      <input class="form-control"type="text" name="vendorName" value="">
+    </div>
+    <div class="form-group">
+      <label for="vendorNum">Mobile Number</label>
+      <input class="form-control" type="text" name="vendorNum" value="">
+    </div>
+    <div>
+      <label for="custAvail">Customer Availability</label>
+      <p>Please select a time slot from the below list</p>
+      <!-- <div class="form-check">
+        <input id="time2" type="radio" name="timeSlot" value="">
+        <label for="time2"><span id="time2Lable"></span></label>
+      </div> -->
+
+      <!-- sample div -->
+      <!-- <div id="availX" class="form-check">
+        <label id= 'availSlotX'>Monday: Jan 14th</label>
+          <label class="radio-inline"><input type="radio" name="optradio">${timeSlots[ii]}</label>
+          <label class="radio-inline"><input type="radio" name="optradio">${timeSlots[ii]}</label>
+      </div> -->
+      <div id="avail1" class="form-check"></div>
+      <div id="avail2" class="form-check"></div>
+      <div id="avail3" class="form-check"></div>
+      <div id="avail4" class="form-check"></div>
+      <div id="avail5" class="form-check"></div>
+      <div id="avail6" class="form-check"></div>
+      <div id="avail7" class="form-check"></div>
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="serviceNotes">Please add and instruction that the customer may require below</label>
+      <textarea class="form-control" name="serviceNotes" rows="8" cols="80"></textarea>
+    </div>
+    <button type="submit" name="SubmitButton">Submit</button>
+  </form>
+</div>
+<script src="js/libs/moment.js"></script>
+  <script src="js/maintReq.js"></script>
+  </body>
+</html>

@@ -5,24 +5,60 @@ const bodyParser = require('body-parser');
 
 const {insertDB} = require('./DB/dbConnect');
 const {sendSMS} = require('./assets/twilio');
+const {sendEmail, schTemplet} = require('./assets/email');
+const {timeTrigger, intTrigger} = require('./assets/triggers');
 
 const publicPath = path.join(__dirname, '../public');
 const views = path.join(__dirname, '../views');
 const port = process.env.PORT || 3000;
-var app = express();
+const app = express();
+// TODO: to send link to responseform. convert to env var
+const host = 'localhost:3000';
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(publicPath));
 
+// //run time trigger, hour in 24, min and callback
+// timeTrigger(6, 52, () => {
+//   console.log('called trigger from server');
+// });
+//
+// //interval triggger
+// intTrigger('* * * * *', () => {
+//   console.log('call int trigger every min from server');
+// });
+
 app.get('/', (req, res) => {
   res.sendFile(views + '/index.html')
 })
 
+app.get('/reqSch', (req, res) => {
+  res.sendFile(views + '/reqSch.html');
+})
+
+// //test email templet
+// var emailBody = schTemplet({
+//   name: 'adam',
+//   property: '123 Main',
+//   link: `${host}/reqSch?serviceId=${req.serviceId}`,
+//   //Availability: ['1m','2m','3a','4e']
+// });
+// sendEmail('adampoznanski@outlook.com',emailBody.subject, emailBody.body);
+
+
 app.post('/form', (req, res) => {
-  console.log(req.body);
-  insertDB(req.body);
+  // console.log(req.body);
+   insertDB(req.body).then((record) => {
+     // var emailBody = schTemplet(req.body);
+     var link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
+     console.log(link);
+     // sendEmail('adampoznanski@outlook.com','test form submit', emailBody);
+   });
   res.sendFile(views + '/form.html');
+  // TODO: vendor selection
+  // notify vendor with accept form
+
 })
 
 app.listen(port, () => {
