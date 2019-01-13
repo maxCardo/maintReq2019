@@ -94,6 +94,7 @@
           <p>Please select the times that you are normaly available.</p>
         </div>
         <div class="container">
+          <input id="serviceDate" type="hidden" name="serviceDate" value="">
           <table class="table table-striped table-condensed">
             <thead>
               <tr>
@@ -107,46 +108,46 @@
 
             </thead>
             <tr>
-              <th scope="row">Monday</th>
-              <td> <input type="checkbox" name="1m" value="true"> </td>
-              <td> <input type="checkbox" name="1a" value="true"> </td>
-              <td> <input type="checkbox" name="1e" value="true"> </td>
+              <th id="day1" scope="row"></th>
+              <td> <input type="checkbox" name="avail" value="11"> </td>
+              <td> <input type="checkbox" name="avail" value="12"> </td>
+              <td> <input type="checkbox" name="avail" value="13"> </td>
             </tr>
             <tr>
-              <th scope="row">Tuesday</th>
-              <td> <input type="checkbox" name="2m" value="true"> </td>
-              <td> <input type="checkbox" name="2a" value="true"> </td>
-              <td> <input type="checkbox" name="2e" value="true"> </td>
+              <th id="day2" scope="row"></th>
+              <td> <input type="checkbox" name="avail" value="21"> </td>
+              <td> <input type="checkbox" name="avail" value="22"> </td>
+              <td> <input type="checkbox" name="avail" value="23"> </td>
             </tr>
             <tr>
-              <th scope="row">Wednesday</th>
-              <td> <input type="checkbox" name="3m" value="true"> </td>
-              <td> <input type="checkbox" name="3a" value="true"> </td>
-              <td> <input type="checkbox" name="3e" value="true"> </td>
+              <th id="day3" scope="row"></th>
+              <td> <input type="checkbox" name="avail" value="31"> </td>
+              <td> <input type="checkbox" name="avail" value="32"> </td>
+              <td> <input type="checkbox" name="avail" value="33"> </td>
             </tr>
             <tr>
-              <th scope="row">Thursday</th>
-              <td> <input type="checkbox" name="4m" value="true"> </td>
-              <td> <input type="checkbox" name="4a" value="true"> </td>
-              <td> <input type="checkbox" name="4e" value="true"> </td>
+              <th id="day4" scope="row"></th>
+              <td> <input type="checkbox" name="avail" value="41"> </td>
+              <td> <input type="checkbox" name="avail" value="42"> </td>
+              <td> <input type="checkbox" name="avail" value="43"> </td>
             </tr>
             <tr>
-              <th scope="row">Friday</th>
-              <td> <input type="checkbox" name="5m" value="true"> </td>
-              <td> <input type="checkbox" name="5a" value="true"> </td>
-              <td> <input type="checkbox" name="5e" value="true"> </td>
+              <th id="day5" scope="row"></th>
+              <td> <input type="checkbox" name="avail" value="51"> </td>
+              <td> <input type="checkbox" name="avail" value="52"> </td>
+              <td> <input type="checkbox" name="avail" value="53"> </td>
             </tr>
             <tr>
-              <th scope="row">Saturday</th>
-              <td> <input type="checkbox" name="6m" value="true"> </td>
-              <td> <input type="checkbox" name="6a" value="true"> </td>
-              <td> <input type="checkbox" name="6e" value="true"> </td>
+              <th id="day6" scope="row"></th>
+              <td> <input type="checkbox" name="avail" value="61"> </td>
+              <td> <input type="checkbox" name="avail" value="62"> </td>
+              <td> <input type="checkbox" name="avail" value="63"> </td>
             </tr>
             <tr>
-              <th scope="row">Sunday</th>
-              <td> <input type="checkbox" name="7m" value="true"> </td>
-              <td> <input type="checkbox" name="7a" value="true"> </td>
-              <td> <input type="checkbox" name="7e" value="true"> </td>
+              <th id="day7" scope="row"></th>
+              <td> <input type="checkbox" name="avail" value="71"> </td>
+              <td> <input type="checkbox" name="avail" value="72"> </td>
+              <td> <input type="checkbox" name="avail" value="73"> </td>
             </tr>
           </table>
           <button onclick="pageTurn('p3', 'p2')" class="btn btn-default" type="button" name="back">Back</button>
@@ -155,6 +156,7 @@
       </div>
     </form>
   </div>
+  <script src="js/libs/moment.js"></script>
   <script src="js/main.js"></script>
 </body>
 

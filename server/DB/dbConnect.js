@@ -19,24 +19,46 @@ const localDB = 'mongodb://localhost:27017/maintReq';
 
 
 //insert record into DB
-const insertDB = function(record) {
-  mongoCliant.connect(mlabDB, (err, client) => {
-    if (err) {
-      return console.log('Error: problem connecting to mongoDB');
-    }
-    console.log('connected to mongoDB');
-    const db = client.db('crdo_req_test');
-
-    db.collection('firstReq').insertOne(record,(err, res) => {
+const insertDB = (record) => {
+  return new Promise(function(resolve, reject) {
+    mongoCliant.connect(mlabDB, (err, client) => {
       if (err) {
-        return console.log('Error: and error occurd on insertOne', err);
+        return console.log('Error: problem connecting to mongoDB');
       }
-      console.log('record saved');
-    })
-    client.close();
+      console.log('connected to mongoDB');
+      const db = client.db('crdo_req_test');
+
+      db.collection('firstReq').insertOne(record,(err, res) => {
+        if (err) {
+          return console.log('Error: and error occurd on insertOne', err);
+        }
+        resolve(res.ops[0]);
+      })
+      client.close();
+    });
   });
 }
 
+
+
+// function(record) {
+//   mongoCliant.connect(mlabDB, (err, client) => {
+//     if (err) {
+//       return console.log('Error: problem connecting to mongoDB');
+//     }
+//     console.log('connected to mongoDB');
+//     const db = client.db('crdo_req_test');
+//
+//     db.collection('firstReq').insertOne(record,(err, res) => {
+//       if (err) {
+//         return console.log('Error: and error occurd on insertOne', err);
+//       }
+//       console.log('record saved');
+//     })
+//     client.close();
+//   });
+// }
+//
 
 
 module.exports = {insertDB};
