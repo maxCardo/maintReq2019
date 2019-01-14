@@ -7,7 +7,7 @@
 
 // NOTE: Mongo DB native Documantation: http://mongodb.github.io/node-mongodb-native/
 
-const mongoCliant = require('mongodb');
+const mongoClient = require('mongodb');
 
 //db connection
 //dep
@@ -21,11 +21,11 @@ const localDB = 'mongodb://localhost:27017/maintReq';
 //insert record into DB
 const insertDB = (record) => {
   return new Promise(function(resolve, reject) {
-    mongoCliant.connect(mlabDB, (err, client) => {
+    mongoClient.connect(mlabDB, (err, client) => {
       if (err) {
         return console.log('Error: problem connecting to mongoDB');
       }
-      console.log('connected to mongoDB');
+      console.log('Connected to mongoDB');
       const db = client.db('crdo_req_test');
 
       db.collection('firstReq').insertOne(record,(err, res) => {
@@ -42,7 +42,7 @@ const insertDB = (record) => {
 
 
 // function(record) {
-//   mongoCliant.connect(mlabDB, (err, client) => {
+//   mongoClient.connect(mlabDB, (err, client) => {
 //     if (err) {
 //       return console.log('Error: problem connecting to mongoDB');
 //     }

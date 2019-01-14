@@ -14,7 +14,7 @@ console.log('utmObj', utmObj);
 const availArr = utmObj.sav.replace(/,/g,"").split("");
 console.log('availArr',availArr);
 const date = parseInt(utmObj.sd, 10);
-const timeSlots = ['','Morning (8:00am-12:00pm)', 'Afternoon (12:00-4:00pm)', 'Evening (4:00-8:00pm)' ]
+const timeSlots = ['','Morning (8am-11pm)', 'Afternoon (12:00-4:00pm)', 'Evening (4:00-8:00pm)' ]
 
 function getDate(dfd) {
   return moment(date).add(dfd, 'd').format('ddd: MMM Do');
