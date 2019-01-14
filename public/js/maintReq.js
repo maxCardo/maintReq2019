@@ -22,8 +22,9 @@ function getDate(dfd) {
 var record = '';
 for (var i = 0; i < availArr.length; i+= 2) {
   var ii = i+1;
-  record += `<label class="radio-inline"><input type="radio" name="optradio"><b>${getDate(availArr[i])}:</b> in the ${timeSlots[availArr[ii]]}</label><br>`
+  record += `<label class="radio-inline"><input type="radio" name="optradio" value=${availArr[i]+availArr[ii]}><b>${getDate(availArr[i])}:</b> in the ${timeSlots[availArr[ii]]}</label><br>`
 
 }
 document.getElementById(`avail1`).innerHTML = record;
-document.getElementById('serviceID').innerHTML = utmObj.sid;
+document.getElementById('_id').value = utmObj.sid;
+document.getElementById('serviceDate').value = utmObj.sd;

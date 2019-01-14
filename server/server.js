@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const {insertDB} = require('./DB/dbConnect');
+const {insertDB, updateDB} = require('./DB/dbConnect');
 const {sendSMS} = require('./assets/twilio');
 const {sendEmail, schTemplet} = require('./assets/email');
 const {timeTrigger, intTrigger} = require('./assets/triggers');
@@ -49,7 +49,7 @@ app.get('/reqSch', (req, res) => {
 
 app.post('/form', (req, res) => {
   // console.log(req.body);
-   insertDB(req.body).then((record) => {
+   insertDB(req.body, 'insert').then((record) => {
      // var emailBody = schTemplet(req.body);
      var link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
      console.log(link);
@@ -60,6 +60,11 @@ app.post('/form', (req, res) => {
   // notify vendor with accept form
 
 })
+
+app.post('/sch', (req, res) => {
+  updateDB(req.body._id,req.body);
+});
+
 
 app.listen(port, () => {
   console.log(`server up on port ${port}.`);
