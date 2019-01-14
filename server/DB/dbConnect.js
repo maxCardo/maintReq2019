@@ -65,8 +65,6 @@ const updateDB = (id,record) => {
   });
 };
 
-<<<<<<< HEAD
-=======
 // function(record) {
 //   mongoClient.connect(mlabDB, (err, client) => {
 //     if (err) {
@@ -85,7 +83,6 @@ const updateDB = (id,record) => {
 //   });
 // }
 //
->>>>>>> e98dc0041ed3e33ffe997a82e9d4be462fb060ab
 
 
 module.exports = {insertDB, updateDB};
