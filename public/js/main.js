@@ -71,6 +71,6 @@ function getDate(dfd) {
   return moment(date).add(dfd, 'd').format('dddd:  MMM Do');
 };
 
-/*for (var i = 1; i < 8; i++) {
+for (var i = 1; i < 8; i++) {
   document.getElementById(`day${i}`).innerHTML = getDate(i);
-}*/
+}
