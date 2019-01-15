@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 
 const {insertDB, updateDB} = require('./DB/dbConnect');
 const {sendSMS} = require('./assets/twilio');
-const {sendEmail, schTemplet} = require('./assets/email');
+const {sendEmail} = require('./assets/email');
 const {timeTrigger, intTrigger} = require('./assets/triggers');
+const {schTempletPB, schTempletHTML} = require('./assets/templets/email-templet');
 
 const publicPath = path.join(__dirname, '../public');
 const views = path.join(__dirname, '../views');
@@ -50,10 +51,10 @@ app.get('/reqSch', (req, res) => {
 app.post('/form', (req, res) => {
   // console.log(req.body);
    insertDB(req.body, 'insert').then((record) => {
-     // var emailBody = schTemplet(req.body);
-     var link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
-     console.log(link);
-     // sendEmail('adampoznanski@outlook.com','test form submit', emailBody);
+     const link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
+     console.log(record);
+     console.log('sending email');
+     sendEmail('adampoznanski@outlook.com','test form submit', schTempletPB(record,link),schTempletHTML(record,link));
    });
   res.sendFile(views + '/form.html');
   // TODO: vendor selection

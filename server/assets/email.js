@@ -33,17 +33,6 @@ const sendEmail = (to, subject, body) => {
 // console.log('send email test start');
 // sendEmail('adampoznanski@outlook.com', 'test', 'test email');
 
-const schTemplet = (obj) => {
-  return{
-    subject:`New Service request added for ${obj.property}`,
-    body:
-    `hi ${obj.name},
-
-    `
-  }
-
-}
 
 
-
-module.exports = {sendEmail, schTemplet};
+module.exports = {sendEmail};
