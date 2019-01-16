@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>Request Service</title>
 
 </head>
@@ -29,53 +30,48 @@
 
   <div class="container align-items-center">
     <h3>Maintenance Request Form</h3>
-    <form name="maintReq" style="width:50%; border:1px" class="" method="POST" action="/form">
+    <form id="maintReq" name="maintReq" style="width:50%; border:1px" class="" method="POST" action="">
       <div id="p1">
         <div class="form-group">
-          <label for="name">First Name</label>
-          <input class="form-control" pattern="[a-zA-Z]{2,}" maxlength=20 type="text" name="name" required autofocus autocomplete="off">
-          <label for="lname">Last Name</label>
-          <input class="form-control" pattern="[a-zA-Z]{2,}" maxlength=25 type="text" name="lname" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input class="form-control" type="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input class="form-control" type="tel" placeholder="###-###-####" name="phone" required>
-          <!--<input class="form-control" type="tel" pattern="[2-9]{1}[0-9]{2}-[2-9]{1}[0-9]{2}-[0-9]{4}" placeholder="###-###-####" name="phone" required>-->
+          <label for="fname">First Name</label> <a class="err_msg valid" name="fname_e">First name may only contain letters</a>
+            <input class="form-control"  maxlength=20 type="text" required name="fname" autofocus>
+          <label for="lname">Last Name</label>  <a class="err_msg valid" name="lname_e">Last name can only contain letters and hyphens</a>
+            <input class="form-control"  maxlength=25 type="text" required name="lname">
+          <label for="email">Email</label>  <a class="err_msg valid" name="email_e">Please enter a valid email address</a>
+            <input class="form-control" type="email" name="email" required>
+          <label for="phone">Phone Number</label> <a class="err_msg valid" name="phone_e">Enter phone number with format ###-###-####</a>
+            <input class="form-control" maxlength=12 type="tel" required placeholder="###-###-####" name="phone">
         </div>
         <div class="form-group">        
-          <label for="property">Property Location</label>
-          <!-- TODO: make property location dynamic -->
-        <select class="form-control" name="property" id ="property" placeholder= "y" required>
-          <option disabled selected value="">--Select a Property--</option>
-          <option value="1500 Fallowfield">1500 Fallowfield Ave</option>
-          <option value="1214 Wynne Ave">1214 Wynne Ave</option>
-          <option value="1415 Rutherford Ave">1415 Rutherford Ave</option>
-          <option value= 3349-3351 Bookman>3349-3351 Bookman</option>
-          <option value="Other">Other</option>
-        </select>
+          <label for="property">Property Location</label> <a class="err_msg valid" name="property_e">You must select a property</a>
+            <!-- TODO: make property location dynamic -->
+            <select class="form-control" required name="property" id ="property" placeholder= "y">
+              <option disabled selected value="">--Select a Property--</option>
+              <option value="1500 Fallowfield">1500 Fallowfield Ave</option>
+              <option value="1214 Wynne Ave">1214 Wynne Ave</option>
+              <option value="1415 Rutherford Ave">1415 Rutherford Ave</option>
+              <option value= 3349-3351 Bookman>3349-3351 Bookman</option>
+              <option value="Other">Other</option>
+            </select>
+          <div id="keyedProperty" style="display: none">
+            <label for="altProp" style="font-size: smaller; font-weight:500">Please enter property address</label>
+                <a class="err_msg valid" name="altProp_e">If 'other' is selected in property drop-down, full address must be entered here</a>
+              <input class="form-control" type="text" id="altProp" name="property">
+          </div>
+          <div class="form-group">
+            <label for="unitNum">Unit Number</label><a class="err_msg valid" name="unitNum_e">Enter unit number with no spaces</a>
+              <input class="form-control" type="text" name="unitNum" maxlength=4>
+          </div>
         </div>
-        <div id="othAddress" style="display:none">
-          <label for="address" style="font-size: smaller; font-weight:500">Please enter property address</label>
-          <input class="form-control" type="text" name="address">
-        </div>
-        <div class="form-group">
-          <label for="unitNum">Unit Number</label>
-          <input class="form-control" type="text" name="unitNum" maxlength=4>
-        </div>
+        <a id="p1Err" class="err_msg valid">Recheck your entries above.</a>
       </div>
-
-
 
       <div id="p2" style="display:none">
         <div class="container">
           <h3>Service Request</h3>
         </div>
         <div class="form-group">
-          <label for="serviceType">Type of Service</label>
+          <label for="serviceType">Type of Service</label><a class="err_msg valid" name ="serviceType_e"></a>
           <select class="form-control" name="serviceType">
             <option disabled selected value="">--Select a Service Type--</option>
             <option>General Maintenance</option>
@@ -86,9 +82,10 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="serviceDisc">Service Request Summary<br><span class="small"> Please add a brief description of your issue.</span></label>
-          <textarea class="form-control" name="serviceDisc" rows="6" cols="80"></textarea>
+          <label for="serviceDesc">Service Request Summary<br><span class="small"> Please add a brief description of your issue.</span></label>
+          <textarea class="form-control" name="serviceDesc" rows="6" cols="80"></textarea>
         </div>
+        <a id="p2Err" class="err_msg valid">Recheck your entries above.</a>
       </div>
 
       <!--third page of form -->
@@ -155,22 +152,29 @@
             </tr>
           </table>
         </div>
+        <input type="hidden" value="Requested" name="status">
+        <a id="p3Err" class="err_msg valid">You must select at least one available timeslot.</a>
       </div>
-
-
+      
+      <!-- Button section below pages-->
       <div>
-          <button id="back" type="button" class="btn btn-default" style="display: none">Back</button>
-          <button id="next" type="button" class="btn btn-default">Next</button>
-          <button id="submit" type="submit" class="btn btn-default" style="display: none">Submit</button>
-        </div>
+        <button id="back" type="button" class="btn btn-default" style="display: none">Back</button>
+        <button id="next" type="button" class="btn btn-default">Next</button>
+        <button id="submit" type="submit" class="btn btn-default" style="display: none">Submit</button>
+      </div>
     </form>
   </div>
 
+  <!--JQuery and JQuery Validation-->
   <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous">
   </script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  </script>
+  <!---------------------------------->
+  <!--Other Javascript Dependencies-->
   <script src="js/libs/moment.js"></script>
   <script src="js/main.js"></script>
 </body>

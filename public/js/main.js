@@ -7,26 +7,83 @@ let page = 1;
 //JQuery wrap for object validation and manipulation
 $(document).ready(()=>{
 
-  //maint req page turner
-  pageTurn = (from, to) => {
-    $(`#${from}`).hide();
-    $(`#${to}`).show();
-  };
-
+  //Property = Other, new Field Appears
   $('#property').change(()=>{
-    $('#property').val() === "Other" ? $('#othAddress').show() : $('#othAddress').hide();
+    $('#property').val() === "Other" ? $('#keyedProperty').show() : $('#keyedProperty').hide();
   });
 
+  $("input[name = 'avail']").change(()=>{
+    $('#p3Err').addClass("valid");
+  });
+
+  $(`input`).blur(function(event){
+    let name = $(this).prop('name');
+    let eMsg = $(`[name=${name}_e]`);
+    let val = $(this).prop('value');
+    let pattern;
+    if(val.length === 0) return;
+    switch (name){
+      case 'fname': 
+        pattern = /^[a-z][a-z ]+$/i;
+        break;
+      case 'lname':
+        pattern = /^[a-z][a-z\-]*[a-z]$/i;
+        break;
+      case 'phone':
+        pattern = /^([2-9][0-9]{2}[-]){2}[0-9]{4}$/;
+        break;
+      case 'email':
+        pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        break;
+      default:
+        return;
+      };
+      if (!pattern.test(val)){
+        eMsg.removeClass("valid");
+      } else {
+        eMsg.addClass("valid");
+        $(`#p${page}Err`).addClass("valid");
+      }; 
+    });
+
+  //Next Button Logic
   $('#next').click(()=>{
-    $('#back').show();
-    if(page === 2){
-      $('#next').hide();
-      $('#submit').show();
+    let valid = true;
+    
+    //Ensure all required fields have a value
+    $(`#p${page} input`).each(function(i){
+      if($(this).prop('required')) {
+        if(!($(this).val())) valid = false;
+      };
+    });
+    
+    //Flag the page as invalid if any error messages are visible
+    $(`#p${page} .err_msg`).each(function(i){
+      if(valid && $(this).is(":visible")) {
+        $(`#p${page}Err`).removeClass("valid");
+        valid = false;
+      } else {
+        $(`#p${page}Err`).addClass("valid");
+        valid = (valid && true);
+      }; 
+    });
+    
+    //If validity checks pass, allow the user forward movement
+    if (valid) {
+      $('#back').show();
+      if(page === 2){
+        $('#next').hide();
+        $('#submit').show();
+      };
+      $(`#p${page}`).hide();
+      $(`#p${++page}`).show();
+      valid = false;
+    } else {
+      $(`#p${page}Err`).removeClass("valid");
     };
-    $(`#p${page}`).hide();
-    $(`#p${++page}`).show();
   });
 
+  //Back Button Logic
   $('#back').click(()=>{
     $('#next').show();
     switch(page){
@@ -41,8 +98,15 @@ $(document).ready(()=>{
     $(`#p${--page}`).show();
   });
   
+  //Submission Validation
+  $('#submit').click(()=>{
+    $('#avail').length > 0 ? $('#maintReq').attr('action', '/form') : $('#p3Err').removeClass("valid");
+  });
+
+  //Drag select mouse behavior on table
+  /*
   $(() => {
-    var isMouseDown = false;
+    let isMouseDown = false;
     $("#availability td")
       .mousedown(()=> {
         isMouseDown = true;
@@ -59,8 +123,9 @@ $(document).ready(()=>{
       $(document).mouseup(() => {
         isMouseDown = false;
       });
-  });
+  });*/
 });
+
 
 // Set date for scheduling
 const date = new Date().getTime();
