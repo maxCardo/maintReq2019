@@ -7,13 +7,13 @@ const schTempletPB = (obj, link) => {
     A new service request has been added for ${obj.property}
 
       Property:  ${obj.property}
-      Unit Number:  ${obj.unitnum}
-      Resident Name: ${obj.name}
+      Unit Number:  ${obj.unitNum}
+      Resident Name: ${obj.name} ${obj.lname}
       Resident Phone: ${obj.phone}
 
-      Request Type: ${obj.reqType}
+      Request Type: ${obj.serviceType}
 
-      Issue Discription: ${obj.reqDis}
+      Issue Discription: ${obj.serviceDisc}
 
 
       To accept this ticket please schedual using the below link.

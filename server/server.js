@@ -52,9 +52,9 @@ app.post('/form', (req, res) => {
   // console.log(req.body);
    insertDB(req.body, 'insert').then((record) => {
      const link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
-     console.log(record);
+     console.log(link);
      console.log('sending email');
-     sendEmail('adampoznanski@outlook.com','test form submit', schTempletPB(record,link),schTempletHTML(record,link));
+     sendEmail('adampoznanski@outlook.com','test form submit', link);
    });
   res.sendFile(views + '/form.html');
   // TODO: vendor selection
@@ -63,7 +63,13 @@ app.post('/form', (req, res) => {
 })
 
 app.post('/sch', (req, res) => {
+ // update DB either schedualed or vendorWillContact
   updateDB(req.body._id,req.body);
+  // notify custmer or the status with a templet
+ // give max a head up
+ // render vendor thank you
+
+ // next step build forward work flow, confirm dave of, calder invites, flow for vendorWillContact reminders etc.
 });
 
 
