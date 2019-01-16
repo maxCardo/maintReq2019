@@ -30,7 +30,7 @@
 
   <div class="container align-items-center">
     <h3>Maintenance Request Form</h3>
-    <form id="maintReq" name="maintReq" class="" method="POST" action="/form">
+    <form id="maintReq" name="maintReq" style="width:50%; border:1px" class="" method="POST" action="/form">
       <div id="p1">
         <div class="form-group">
           <label for="fname">First Name</label> <a class="err_msg valid" name="fname_e">First name may only contain letters</a>
@@ -42,7 +42,7 @@
           <label for="phone">Phone Number</label> <a class="err_msg valid" name="phone_e">Enter phone number with format ###-###-####</a>
             <input class="form-control" maxlength=12 type="tel" required placeholder="###-###-####" name="phone">
         </div>
-        <div class="form-group">        
+        <div class="form-group">
           <label for="property">Property Location</label> <a class="err_msg valid" name="property_e">You must select a property</a>
             <!-- TODO: make property location dynamic -->
             <select class="form-control" required name="property" id ="property" placeholder= "y">
@@ -155,7 +155,7 @@
         <input type="hidden" value="Requested" name="status">
         <a id="p3Err" class="err_msg valid">You must select at least one available timeslot.</a>
       </div>
-      
+
       <!-- Button section below pages-->
       <div>
         <button id="back" type="button" class="btn btn-default" style="display: none">Back</button>

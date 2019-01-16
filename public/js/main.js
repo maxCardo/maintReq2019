@@ -23,7 +23,7 @@ $(document).ready(()=>{
     let pattern;
     if(val.length === 0) return;
     switch (name){
-      case 'fname': 
+      case 'fname':
         pattern = /^[a-z][a-z ]+$/i;
         break;
       case 'lname':
@@ -45,7 +45,7 @@ $(document).ready(()=>{
       } else {
         eMsg.addClass("valid");
         $(`#p${page}Err`).addClass("valid");
-      }; 
+      };
     });
 
   //Next Button Logic
@@ -58,7 +58,7 @@ $(document).ready(()=>{
         if(!($(this).val())) valid = false;
       };
     });
-    
+
     //Flag the page as invalid if any error messages are visible
     $(`#p${page} .err_msg`).each(function(i){
       if(valid && $(this).is(":visible")) {
@@ -67,9 +67,9 @@ $(document).ready(()=>{
       } else {
         $(`#p${page}Err`).addClass("valid");
         valid = (valid && true);
-      }; 
+      };
     });
-    
+
     //If validity checks pass, allow the user forward movement
     if (valid) {
       $('#back').show();
