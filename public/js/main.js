@@ -51,9 +51,7 @@ $(document).ready(()=>{
   //Next Button Logic
   $('#next').click(()=>{
     let valid = true;
-    
-    var x = () => {};
-    
+
     //Ensure all required fields have a value
     $(`#p${page} input`).each(function(i){
       if($(this).prop('required')) {
@@ -101,14 +99,14 @@ $(document).ready(()=>{
     $(`#p${page}`).hide();
     $(`#p${--page}`).show();
   });
-  
-  //Submission Validation
-  $('#submit').click(()=>{
-    console.log($('#avail').length);
-    $('#avail').length > 0 ? $('#maintReq').attr('action', '/form') : $('#p3Err').removeClass("valid");
-  });
-
-  //Drag select mouse behavior on table
+  //
+  // //Submission Validation
+  // $('#submit').click(()=>{
+  //   console.log($('#avail').length);
+  //   $('#avail').length > 0 ? $('#maintReq').attr('action', '/form') : $('#p3Err').removeClass("valid");
+  // });
+  //
+  // //Drag select mouse behavior on table
   /*
   $(() => {
     let isMouseDown = false;
