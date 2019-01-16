@@ -7,7 +7,7 @@ const {insertDB, updateDB} = require('./DB/dbConnect');
 const {sendSMS} = require('./assets/twilio');
 const {sendEmail} = require('./assets/email');
 const {timeTrigger, intTrigger} = require('./assets/triggers');
-const {schTempletPB, schTempletHTML} = require('./assets/templets/email-templet');
+const {schTemplet} = require('./assets/templets/email-templet');
 
 const publicPath = path.join(__dirname, '../public');
 const views = path.join(__dirname, '../views');
@@ -54,7 +54,9 @@ app.post('/form', (req, res) => {
      const link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
      console.log(link);
      console.log('sending email');
-     sendEmail('adampoznanski@outlook.com','test form submit', link);
+     console.log(record);
+     const emailTemp = schTemplet(record, link);
+     sendEmail('adampoznanski@outlook.com',emailTemp.subject, emailTemp.body, emailTemp.html);
    });
   res.sendFile(views + '/form.html');
   // TODO: vendor selection
@@ -67,7 +69,7 @@ app.post('/sch', (req, res) => {
   updateDB(req.body._id,req.body);
   // notify custmer or the status with a templet
  // give max a head up
- // render vendor thank you
+ res.send('<h3>Thank You</h3>');
 
  // next step build forward work flow, confirm dave of, calder invites, flow for vendorWillContact reminders etc.
 });

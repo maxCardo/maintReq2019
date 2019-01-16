@@ -23,7 +23,7 @@ $(document).ready(()=>{
     let pattern;
     if(val.length === 0) return;
     switch (name){
-      case 'fname': 
+      case 'fname':
         pattern = /^[a-z][a-z ]+$/i;
         break;
       case 'lname':
@@ -43,20 +43,20 @@ $(document).ready(()=>{
       } else {
         eMsg.addClass("valid");
         $(`#p${page}Err`).addClass("valid");
-      }; 
+      };
     });
 
   //Next Button Logic
   $('#next').click(()=>{
     let valid = true;
-    
+
     //Ensure all required fields have a value
     $(`#p${page} input`).each(function(i){
       if($(this).prop('required')) {
         if(!($(this).val())) valid = false;
       };
     });
-    
+
     //Flag the page as invalid if any error messages are visible
     $(`#p${page} .err_msg`).each(function(i){
       if(valid && $(this).is(":visible")) {
@@ -65,9 +65,9 @@ $(document).ready(()=>{
       } else {
         $(`#p${page}Err`).addClass("valid");
         valid = (valid && true);
-      }; 
+      };
     });
-    
+
     //If validity checks pass, allow the user forward movement
     if (valid) {
       $('#back').show();
@@ -97,13 +97,13 @@ $(document).ready(()=>{
     $(`#p${page}`).hide();
     $(`#p${--page}`).show();
   });
-  
-  //Submission Validation
-  $('#submit').click(()=>{
-    $('#avail').length > 0 ? $('#maintReq').attr('action', '/form') : $('#p3Err').removeClass("valid");
-  });
-
-  //Drag select mouse behavior on table
+  //
+  // //Submission Validation
+  // $('#submit').click(()=>{
+  //   $('#avail').length > 0 ? $('#maintReq').attr('action', '/form') : $('#p3Err').removeClass("valid");
+  // });
+  //
+  // //Drag select mouse behavior on table
   /*
   $(() => {
     let isMouseDown = false;
