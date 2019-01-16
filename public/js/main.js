@@ -35,6 +35,8 @@ $(document).ready(()=>{
       case 'email':
         pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         break;
+      case 'property':
+        console.log(val);
       default:
         return;
       };
@@ -49,6 +51,8 @@ $(document).ready(()=>{
   //Next Button Logic
   $('#next').click(()=>{
     let valid = true;
+    
+    var x = () => {};
     
     //Ensure all required fields have a value
     $(`#p${page} input`).each(function(i){
@@ -100,6 +104,7 @@ $(document).ready(()=>{
   
   //Submission Validation
   $('#submit').click(()=>{
+    console.log($('#avail').length);
     $('#avail').length > 0 ? $('#maintReq').attr('action', '/form') : $('#p3Err').removeClass("valid");
   });
 
