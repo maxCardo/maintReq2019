@@ -1,27 +1,28 @@
-/*jshint esversion:6*/
 let page = 1;
-// TODO: add data validation to form
-//https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-// vaidation vid https://www.youtube.com/watch?v=cZVO8IWkFtg
 
 //JQuery wrap for object validation and manipulation
 $(document).ready(()=>{
-
   //Property = Other, new Field Appears
   $('#property').change(()=>{
-    $('#property').val() === "Other" ? $('#keyedProperty').show() : $('#keyedProperty').hide();
+    let addy = $('#property').val();
+    if(addy === "Other"){
+      $('#address').val('');
+      $('#keyedProperty').show();
+      $(`#zip`).prop('required', true);
+    } else {
+      $('#keyedProperty').hide();
+      $('#address').val(addy);
+      $('#zip').prop('required', false);
+    }
   });
 
-  $("input[name = 'avail']").change(()=>{
-    $('#p3Err').addClass("valid");
-  });
-
-  $(`input`).blur(function(event){
+  $(`input`).change(function(event){
     let name = $(this).prop('name');
     let eMsg = $(`[name=${name}_e]`);
     let val = $(this).prop('value');
     let pattern;
-    if(val.length === 0) return;
+
+    if(val.length === 0 && eMsg.attr('class') === "valid") return;
     switch (name){
       case 'fname':
         pattern = /^[a-z][a-z ]+$/i;
@@ -30,48 +31,58 @@ $(document).ready(()=>{
         pattern = /^[a-z][a-z\-]*[a-z]$/i;
         break;
       case 'phone':
-        pattern = /^([2-9][0-9]{2}[-]){2}[0-9]{4}$/;
+        pattern = /^([2-9][0-9]{2}[\-]){2}[0-9]{4}$/;
         break;
       case 'email':
         pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         break;
-      case 'property':
-        console.log(val);
+      case 'unitNum':
+        pattern = /^[a-z0-9]*$/i;
+        break;
+      case 'address':
+        pattern = /^[1-9]+[ ][a-z0-9 \.\-]+$/i;
+        break;
+      case 'zip':
+        pattern = /^[0-9]{5}$/;
+        break;
       default:
         return;
-      };
-      if (!pattern.test(val)){
-        eMsg.removeClass("valid");
-      } else {
-        eMsg.addClass("valid");
-        $(`#p${page}Err`).addClass("valid");
-      };
-    });
+    };
+    if (pattern.test(val)){
+      eMsg.addClass("valid");
+      $(`#p${page}Err`).addClass("valid");
+    } else {
+      eMsg.removeClass("valid");
+    };
+
+  });
+
+  $(`#serviceDate`).bind('change',()=>{
+    console.log($(this).val);
+    if($(this).val() > 2){
+      $(`#submit`).data('valid',true);
+    } else {
+      $(`#submit`).data('valid',false);
+    };
+  });
 
   //Next Button Logic
   $('#next').click(()=>{
     let valid = true;
 
-    //Ensure all required fields have a value
-    $(`#p${page} input`).each(function(i){
-      if($(this).prop('required')) {
-        if(!($(this).val())) valid = false;
-      };
+    //Flag page as invalid if any required fields are blank
+    $(`#p${page} input:required`).each(function(i){
+      if(valid && $(this).val().length === 0) valid = false;
     });
 
     //Flag the page as invalid if any error messages are visible
-    $(`#p${page} .err_msg`).each(function(i){
-      if(valid && $(this).is(":visible")) {
-        $(`#p${page}Err`).removeClass("valid");
+    $(`#p${page} .err_msg:visible`).each(()=>{
         valid = false;
-      } else {
-        $(`#p${page}Err`).addClass("valid");
-        valid = (valid && true);
-      };
     });
 
     //If validity checks pass, allow the user forward movement
     if (valid) {
+      $(`#p${page}Err`).addClass("valid");
       $('#back').show();
       if(page === 2){
         $('#next').hide();
@@ -99,13 +110,13 @@ $(document).ready(()=>{
     $(`#p${page}`).hide();
     $(`#p${--page}`).show();
   });
-  //
-  // //Submission Validation
-  // $('#submit').click(()=>{
-  //   console.log($('#avail').length);
-  //   $('#avail').length > 0 ? $('#maintReq').attr('action', '/form') : $('#p3Err').removeClass("valid");
-  // });
-  //
+
+  //Submission Validation
+  $('#submit').bind('change', ()=> {
+    console.log($(this));
+    console.log($(this).data('valid'));
+  });
+  
   // //Drag select mouse behavior on table
   /*
   $(() => {
