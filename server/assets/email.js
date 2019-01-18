@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-const config = require('./../config/config')
+const config = require('./../config/creds')
 
 // make email less secure
 //https://myaccount.google.com/lesssecureapps?pli=1
