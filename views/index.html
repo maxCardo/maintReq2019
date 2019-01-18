@@ -31,22 +31,22 @@
   <div class="container align-items-center">
     <h3>Maintenance Request Form</h3>
     <form id="maintReq" name="maintReq" class="" method="POST" action="/form" data-valid=false>
+      <!---------------------PAGE 1 CUSTOMER DEMOGRAPHICS----------------->
       <div id="p1" >
         <div class="form-group">
-          <label for="fname">First Name</label> <a class="err_msg valid" name="fname_e"> First name may only contain letters</a>
-            <input class="form-control"   maxlength=20 type="text" required name="fname" autofocus>
-          <label for="lname">Last Name</label>  <a class="err_msg valid" name="lname_e"> Last name can only contain letters and hyphens</a>
-            <input class="form-control"   maxlength=25 type="text" required name="lname">
-          <label for="email">Email</label>  <a class="err_msg valid" name="email_e"> Please enter a valid email address</a>
-            <input class="form-control"  type="email" name="email" required>
-          <label for="phone">Phone Number</label> <a class="err_msg valid" name="phone_e"> Enter phone number with format ###-###-####</a>
-            <input class="form-control"  maxlength=12 type="tel" required placeholder="###-###-####" name="phone">
+          <label for="fname">First Name</label> <a class="err_msg valid" id="fname_e"> First name may only contain letters</a>
+            <input class="form-control"   maxlength=20 type="text" id="fname" required name="fname">
+          <label for="lname">Last Name</label>  <a class="err_msg valid" id="lname_e"> Last name can only contain letters and hyphens</a>
+            <input class="form-control"   maxlength=25 type="text" id="lname" required name="lname">
+          <label for="email">Email</label>  <a class="err_msg valid" id="email_e"> Please enter a valid email address</a>
+            <input class="form-control"  type="email" id="email" name="email" required>
+          <label for="phone">Phone Number</label> <a class="err_msg valid" id="phone_e"> Enter phone number with format ###-###-####</a>
+            <input class="form-control"  maxlength=12 type="tel" id="phone" required placeholder="###-###-####" name="phone">
         </div>
         <div class="form-group">
-          <label for="property">Property Location</label> <a class="err_msg valid" name="property_e"> You must select a property</a>
-            <!-- TODO: make property location dynamic -->
+          <label for="property">Property Location</label> <a class="err_msg valid" id="property_e"> You must select a property</a>
             <select class="form-control" name="property" id ="property" placeholder="Y" required>
-              <option disabled selected>--Select a Property--</option>
+              <option disabled selected value="">--Select a Property--</option>
               <option value="1500 Fallowfield">1500 Fallowfield Ave</option>
               <option value="1214 Wynne Ave">1214 Wynne Ave</option>
               <option value="1415 Rutherford Ave">1415 Rutherford Ave</option>
@@ -55,27 +55,28 @@
             </select>
           <div id="keyedProperty" style="display: none">
             <label for="altProp" style="font-size: smaller; font-weight:500">Street address</label>
-              <a class="err_msg valid" name="address_e"> If 'other' is selected in property drop-down, full address must be entered here</a>
+              <a class="err_msg valid" id="address_e"> If 'other' is selected in property drop-down, full address must be entered here</a>
               <input class="form-control" type="text" id="address" required name="address">
             <label for="altProp" style="font-size: smaller; font-weight:500">Zipcode</label>
-              <a class="err_msg valid" name="zip_e"> Zipcode should be a 5 digit number.</a>
-              <input class="form-control" type="number" name="zip">
+              <a class="err_msg valid" id="zip_e"> Zipcode should be a 5 digit number.</a>
+              <input class="form-control" type="number" id="zip" name="zip">
           </div>
           <div class="form-group">
-            <label for="unitNum">Unit Number</label><a class="err_msg valid" name="unitNum_e"> Enter unit number with no spaces</a>
-              <input class="form-control" type="text" name="unitNum" maxlength=4>
+            <label for="unitNum">Unit Number</label><a class="err_msg valid" id="unitNum_e"> Enter unit number with no spaces</a>
+              <input class="form-control" type="text" id="unitNum" name="unitNum" maxlength=4>
           </div>
         </div>
-        <a id="p1Err" class="err_msg valid">Recheck your entries above.</a>
+        <a id="p1Err" class="err_msg valid">Ensure all required fields are properly filled out.</a>
       </div>
-
-      <div id="p2" style="display:none" >
+      <!-----------------PAGE 2 SERVICE TYPE AND FIELD NOTES----------------->
+      <div id="p2" style="display:none">
         <div class="container">
           <h3>Service Request</h3>
         </div>
         <div class="form-group">
-          <label for="serviceType">Type of Service</label><a class="err_msg valid" name ="serviceType_e"></a>
-          <select class="form-control" required name="serviceType">
+          <input type="hidden" name="svcType" id="svcType" value="" required>
+          <label for="serviceType">Type of Service</label><a class="err_msg valid" id="serviceType_e"> Select a service.</a>
+          <select class="form-control" name="serviceType" id="serviceType">
             <option disabled selected value="">--Select a Service Type--</option>
             <option>General Maintenance</option>
             <option>HVAC</option>
@@ -86,12 +87,12 @@
         </div>
         <div class="form-group">
           <label for="serviceDiscription">Service Request Summary<br><span class="small"> Please add a brief description of your issue.</span></label>
-          <textarea class="form-control" required val="" name="serviceDiscription" rows="6" cols="80"></textarea>
+          <a id="serviceDiscription_e" class="err_msg valid"> Enter at least fifteen characters,</a>
+          <textarea class="form-control" id="serviceDiscription" name="serviceDiscription" row=6 col=80></textarea>
         </div>
         <a id="p2Err" class="err_msg valid">Ensure all required fields are properly filled out.</a>
       </div>
-
-      <!--third page of form -->
+      <!-----------------PAGE 3 AVAILABILITY AND SUBMISSION----------------->
       <div id="p3" style="display:none" >
         <div class="container">
           <h3>Scheduling</h3>
@@ -156,14 +157,14 @@
           </table>
         </div>
         <input type="hidden" value="Requested" name="status">
-        <a id="p3Err" class="err_msg valid">You must select at least one available timeslot.</a>
+        <a id="p3Err" class="err_msg valid">Select at least 3 available timeslots.</a>
       </div>
 
       <!-- Button section below pages-->
       <div>
         <button id="back" type="button" class="btn btn-default" style="display: none">Back</button>
         <button id="next" type="button" class="btn btn-default progBtn">Next</button>
-        <button id="submit" type="submit" disabled=true class="btn btn-default progBtn" style="display: none">Submit</button>
+        <button id="submit" type="submit" class="btn btn-default progBtn" style="display: none">Submit</button>
       </div>
     </form>
   </div>

@@ -1,9 +1,10 @@
 let page = 1;
+let checked = [];
 
 //JQuery wrap for object validation and manipulation
 $(document).ready(()=>{
   //Property = Other, new Field Appears
-  $('#property').change(()=>{
+  $('#property').change(function(){
     let addy = $('#property').val();
     if(addy === "Other"){
       $('#address').val('');
@@ -16,14 +17,27 @@ $(document).ready(()=>{
     }
   });
 
-  $(`input`).change(function(event){
-    let name = $(this).prop('name');
-    let eMsg = $(`[name=${name}_e]`);
-    let val = $(this).prop('value');
+  //ServiceType = If not selected prevents forward movement
+  $('#serviceType').change(function() {
+    $('#svcType').val($('#serviceType').val());
+    $('#serviceType_e').addClass("valid");
+  });
+
+  //ServiceDiscription = Checks for adequate length
+  $('#serviceDiscription').keyup(function(){
+    if ($(this).val().length > 15){
+      $('#serviceDiscription_e').addClass("valid");
+    };
+  });
+
+  $(`input:not(:checkbox)`).blur(function(event){
+    let id = $(this).prop('id');
+    let eMsg = $(`#${id}_e`);
+    let val = $(this).val();
     let pattern;
 
-    if(val.length === 0 && eMsg.attr('class') === "valid") return;
-    switch (name){
+    if(val.length === 0 && eMsg.addClass("valid")) return;
+    switch (id){
       case 'fname':
         pattern = /^[a-z][a-z ]+$/i;
         break;
@@ -46,7 +60,7 @@ $(document).ready(()=>{
         pattern = /^[0-9]{5}$/;
         break;
       default:
-        return;
+        break;
     };
     if (pattern.test(val)){
       eMsg.addClass("valid");
@@ -57,17 +71,9 @@ $(document).ready(()=>{
 
   });
 
-  $(`#serviceDate`).bind('change',()=>{
-    console.log($(this).val);
-    if($(this).val() > 2){
-      $(`#submit`).data('valid',true);
-    } else {
-      $(`#submit`).data('valid',false);
-    };
-  });
-
   //Next Button Logic
   $('#next').click(()=>{
+    $(`#p${page}Err`).addClass("valid");
     let valid = true;
 
     //Flag page as invalid if any required fields are blank
@@ -80,6 +86,18 @@ $(document).ready(()=>{
         valid = false;
     });
 
+    if(page == 2) {
+      if($.trim($('#serviceDiscription').val()).length < 15) {
+        $('#serviceDiscription_e').removeClass("valid");
+        valid = false;
+      }; 
+
+      if($('#svcType').val() == "") {
+        $('#serviceType_e').removeClass("valid");
+        valid = false;
+      };
+    };
+
     //If validity checks pass, allow the user forward movement
     if (valid) {
       $(`#p${page}Err`).addClass("valid");
@@ -90,10 +108,10 @@ $(document).ready(()=>{
       };
       $(`#p${page}`).hide();
       $(`#p${++page}`).show();
-      valid = false;
     } else {
       $(`#p${page}Err`).removeClass("valid");
     };
+
   });
 
   //Back Button Logic
@@ -112,9 +130,12 @@ $(document).ready(()=>{
   });
 
   //Submission Validation
-  $('#submit').bind('change', ()=> {
-    console.log($(this));
-    console.log($(this).data('valid'));
+  $('#maintReq').submit(function() {
+    if($('input:checked').length < 3) {
+      $(`#p${page}Err`).removeClass("valid");
+      return false;
+    };
+    return true;
   });
   
   // //Drag select mouse behavior on table
