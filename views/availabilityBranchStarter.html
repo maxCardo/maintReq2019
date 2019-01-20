@@ -1,0 +1,56 @@
+<head>
+  <style>
+    table td {
+      line-height: 5px;
+      column-width: 100px;
+      color: white;
+    }
+    
+    table th {
+        border: 4px solid black;
+        text-align: center;
+        column-gap: 8px;
+    }
+    
+    td {
+        background-color: rgb(218, 135, 124);
+        border-left: 2px solid black;
+        border-left: 2px solid black;
+        text-align: center;
+    }
+    
+    table td.highlighted{
+        background-color: rgb(109, 216, 109);
+        color: black;
+    }
+  </style>
+</head>
+<div id="p3" style="display:none">
+  <div class="container">
+    <h3>Scheduling</h3>
+    <br>
+    <p>Please select the times you will be available.</p>
+  </div>
+  <div class="container">
+    <input id="serviceDate" type="hidden" name="serviceDate" value="">
+    <table id="availability" class="maintReqTbl">
+        <th scope="col">Monday</th>
+        <th scope="col">Tuesday</th>
+        <th scope="col">Wednesday</th>
+        <th scope="col">Thursday</th>
+        <th scope="col">Friday</th>
+        <th scope="col">Saturday</th>
+        <th scope="col">Sunday</th>
+        <script>
+          for(let q = 0; q < 96; q++){
+            document.write('<tr>');
+            for(let d = 1; d <= 7; d++){
+              document.write(`<td>_</td>`);
+            }
+            document.write('</tr>');
+          }
+        </script>
+    </table>
+  </div>
+</div>
+

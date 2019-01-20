@@ -1,0 +1,9 @@
+.err_msg{
+    color: red;
+    font-size: 9pt;
+    font-weight: normal;
+}
+
+.valid{
+    display: none;
+}
