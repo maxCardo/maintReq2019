@@ -24,6 +24,4 @@ const twlAuthToken = process.env.TWL_AUTH_TOKEN;
 const gmlAcct = process.env.GML_ACCT;
 const gmlPass = process.env.GML_PASS;
 
-console.log(process.env.USERNAME);
-
 module.exports = {twlAuthToken, twlsid, gmlAcct, gmlPass};
