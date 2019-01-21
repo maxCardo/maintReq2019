@@ -41,6 +41,7 @@ const insertDB = (record) => {
 
 const updateDB = (id,record) => {
   return new Promise(function(resolve, reject) {
+    console.log('record', record);
     MongoClient.connect(mlabDB, (err, client) => {
       if (err) {
         return console.log('Error: problem connecting to mongoDB');
@@ -52,37 +53,18 @@ const updateDB = (id,record) => {
         _id: new ObjectID(id)
       },{
         $set: {
-          status: 'schedualed',
+          status: record,
         }
       },{
         returnOriginal: false
       }).then((res) => {
-        console.log(res);
+        console.log('Record updated');
       })
-
-    });
       client.close();
+    });
   });
 };
 
-// function(record) {
-//   mongoClient.connect(mlabDB, (err, client) => {
-//     if (err) {
-//       return console.log('Error: problem connecting to mongoDB');
-//     }
-//     console.log('connected to mongoDB');
-//     const db = client.db('crdo_req_test');
-//
-//     db.collection('firstReq').insertOne(record,(err, res) => {
-//       if (err) {
-//         return console.log('Error: and error occurd on insertOne', err);
-//       }
-//       console.log('record saved');
-//     })
-//     client.close();
-//   });
-// }
-//
 
 
 module.exports = {insertDB, updateDB};
