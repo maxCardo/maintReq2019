@@ -38,16 +38,6 @@ app.get('/reqSch', (req, res) => {
   res.sendFile(views + '/reqSch.html');
 })
 
-// //test email templet
-// var emailBody = schTemplet({
-//   name: 'adam',
-//   property: '123 Main',
-//   link: `${host}/reqSch?serviceId=${req.serviceId}`,
-//   //Availability: ['1m','2m','3a','4e']
-// });
-// sendEmail('adampoznanski@outlook.com',emailBody.subject, emailBody.body);
-
-
 app.post('/form', (req, res) => {
   // console.log(req.body);
    insertDB(req.body, 'insert').then((record) => {
@@ -64,13 +54,24 @@ app.post('/form', (req, res) => {
 
 })
 
+
 app.post('/sch', (req, res) => {
- // update DB either schedualed or vendorWillContact
-  updateDB(req.body._id,req.body);
+  const getStatus = new Promise((resolve, reject) => {
+    if (req.body.optradio === 'vendorToContact') {
+      resolve('VWC');
+    }else {
+      resolve('Schedualed')
+    }
+  });
+
+  getStatus.then((status) => {
+    console.log('status: ',status, 'optradio: ', req.body.optradio);
+    updateDB(req.body._id,status);
+  })
   // notify custmer or the status with a templet
  // give max a head up
+ console.log('run last log');
  res.send('<h3>Thank You</h3>');
-
  // next step build forward work flow, confirm dave of, calder invites, flow for vendorWillContact reminders etc.
 });
 
