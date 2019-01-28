@@ -19,9 +19,15 @@
 //
 // # this block pulls the environment variable from windows/linux
 
+console.log('connected to config file');
+
 const twlsid = process.env.TWLS_ID;
 const twlAuthToken = process.env.TWL_AUTH_TOKEN;
 const gmlAcct = process.env.GML_ACCT;
 const gmlPass = process.env.GML_PASS;
+const smtpPass = process.env.SMTP_PASS;
+const smtpAcct = process.env.SMTP_ACCT;
+const smtpHost = process.env.SMTP_HOST;
 
-module.exports = {twlAuthToken, twlsid, gmlAcct, gmlPass};
+
+module.exports = {twlAuthToken, twlsid, gmlAcct, gmlPass, smtpPass, smtpHost, smtpAcct};

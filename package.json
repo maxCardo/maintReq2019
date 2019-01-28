@@ -20,6 +20,6 @@
     "mongodb": "^3.1.10",
     "node-cron": "^2.0.3",
     "nodemailer": "^5.0.0",
-    "twilio": "^3.26.1"
+    "twilio": "^3.26.1",
   }
 }

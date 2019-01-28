@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const {insertDB, updateDB} = require('./DB/dbConnect');
+const {insertDB, updateDB, logDB} = require('./DB/dbConnect');
 const {sendSMS} = require('./assets/twilio');
 const {sendEmail} = require('./assets/email');
 const {timeTrigger, intTrigger} = require('./assets/triggers');
@@ -39,19 +39,16 @@ app.get('/reqSch', (req, res) => {
 })
 
 app.post('/form', (req, res) => {
-  // console.log(req.body);
    insertDB(req.body, 'insert').then((record) => {
      const link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
-     console.log(link);
-     console.log('sending email');
-     console.log(record);
+     logDB(record._id, 'Work Order Created')
      const emailTemp = schTemplet(record, link);
      sendEmail('adampoznanski@outlook.com',emailTemp.subject, emailTemp.body, emailTemp.html);
+     return record;
+   }).then((record) => {
+     logDB(record._id, 'email sent to vendor');
    });
   res.sendFile(views + '/form.html');
-  // TODO: vendor selection
-  // notify vendor with accept form
-
 })
 
 
@@ -60,13 +57,14 @@ app.post('/sch', (req, res) => {
     if (req.body.optradio === 'vendorToContact') {
       resolve('VWC');
     }else {
-      resolve('Schedualed')
+      resolve('Scheduled')
     }
   });
 
   getStatus.then((status) => {
     console.log('status: ',status, 'optradio: ', req.body.optradio);
     updateDB(req.body._id,status);
+    logDB(req.body._id, `Status updated to ${status}`)
   })
   // notify custmer or the status with a templet
  // give max a head up
