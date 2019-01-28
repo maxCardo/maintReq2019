@@ -17,11 +17,13 @@ const mlabDB = 'mongodb://user:mcgtest2018@ds145704.mlab.com:45704/crdo_req_test
 //test
 const localDB = 'mongodb://localhost:27017/maintReq';
 
+const dataBase = mlabDB;
+
 
 //insert record into DB
 const insertDB = (record) => {
   return new Promise(function(resolve, reject) {
-    MongoClient.connect(mlabDB, (err, client) => {
+    MongoClient.connect(dataBase, (err, client) => {
       if (err) {
         return console.log('Error: problem connecting to mongoDB');
       }
@@ -41,7 +43,8 @@ const insertDB = (record) => {
 
 const updateDB = (id,record) => {
   return new Promise(function(resolve, reject) {
-    MongoClient.connect(mlabDB, (err, client) => {
+    console.log('record', record);
+    MongoClient.connect(dataBase, (err, client) => {
       if (err) {
         return console.log('Error: problem connecting to mongoDB');
       }
@@ -52,37 +55,68 @@ const updateDB = (id,record) => {
         _id: new ObjectID(id)
       },{
         $set: {
-          status: 'schedualed',
+          status: record,
         }
       },{
         returnOriginal: false
       }).then((res) => {
-        console.log(res);
+        console.log('Record updated');
       })
-
-    });
       client.close();
+    });
   });
 };
 
-// function(record) {
-//   mongoClient.connect(mlabDB, (err, client) => {
-//     if (err) {
-//       return console.log('Error: problem connecting to mongoDB');
-//     }
-//     console.log('connected to mongoDB');
-//     const db = client.db('crdo_req_test');
-//
-//     db.collection('firstReq').insertOne(record,(err, res) => {
-//       if (err) {
-//         return console.log('Error: and error occurd on insertOne', err);
-//       }
-//       console.log('record saved');
-//     })
-//     client.close();
-//   });
-// }
-//
+
+const logDB = (id, logEntry) => {
+return new Promise(function(resolve, reject) {
+  MongoClient.connect(dataBase, (err, client) => {
+    if (err) {
+      return console.log('Error: problem connecting to mongoDB');
+    }
+    console.log('connected to mongoDB');
+    const db = client.db('crdo_req_test');
+
+    db.collection('firstReq').findOneAndUpdate({
+      _id: new ObjectID(id)
+    },{
+      $push: {
+        activity: {
+          Date: new Date,
+          activity:logEntry,
+
+        },
+      }
+    },{
+      returnOriginal: false
+    }).then((res) => {
+      console.log('Record updated');
+    })
+    client.close();
+  });
+});
+};
+
+const getVendor = (location, serviceType) => {
+  return new Promise(function(resolve, reject) {
+    // MongoClient.connect(dataBase, (err, client) => {
+    //   if (err) {
+    //   return console.log('Error: problem connecting to mongoDB');
+    //   }
+    //   console.log('connected to mongoDB');
+    //   const db = client.db('crdo_req_test');
+    //
+    //
+    //     //find array of vendors by location
+    //   db.collection('vendors').find({
+    //     //location????
+    //   }.then((value) => {
+    //     console.log(value);
+    //   })
+    //   client.close();
+    // });
+  });
+};
 
 
-module.exports = {insertDB, updateDB};
+module.exports = {insertDB, updateDB, logDB, getVendor};

@@ -14,7 +14,7 @@ console.log('utmObj', utmObj);
 const availArr = utmObj.sav.replace(/,/g,"").split("");
 console.log('availArr',availArr);
 const date = parseInt(utmObj.sd, 10);
-const timeSlots = ['','Morning (8am-11pm)', 'Afternoon (12:00-4:00pm)', 'Evening (4:00-8:00pm)' ]
+const timeSlots = ['','Morning (8am-11am)', 'Afternoon (12pm-4pm)', 'Evening (4pm-8pm)' ]
 
 function getDate(dfd) {
   return moment(date).add(dfd, 'd').format('ddd: MMM Do');
@@ -22,7 +22,7 @@ function getDate(dfd) {
 var record = '';
 for (var i = 0; i < availArr.length; i+= 2) {
   var ii = i+1;
-  record += `<label class="radio-inline"><input type="radio" name="optradio" value=${availArr[i]+availArr[ii]}><b>${getDate(availArr[i])}:</b> in the ${timeSlots[availArr[ii]]}</label><br>`
+  record += `<label class="radio-inline"><input type="radio" required name="optradio" value=${availArr[i]+availArr[ii]}><b>${getDate(availArr[i])}:</b> in the ${timeSlots[availArr[ii]]}</label><br>`
 
 }
 document.getElementById(`avail1`).innerHTML = record;

@@ -1,21 +1,22 @@
 const nodemailer = require('nodemailer');
-
 const config = require('./../config/creds')
 
 // make email less secure
 //https://myaccount.google.com/lesssecureapps?pli=1
 
-const transporter = nodemailer.createTransport({
-  service:'gmail',
-  auth:{
-    user:config.gmlAcct,
-    pass: config.gmlPass
-  }
-});
+let transporter = nodemailer.createTransport({
+  host: "smtpout.secureserver.net",
+  port: 465,
+  secure: true,
+  auth: {
+    user: config.smtpAcct,
+    pass: config.smtpPass
+    }
+  });
 
 const sendEmail = (to, subject, body, html) => {
-  const mailOptions = {
-    from:'1214wynne@gmail.com',
+  let mailOptions = {
+    from:'info@levanongrp.com',
     to: to,
     subject:subject,
     text:body,
@@ -24,7 +25,7 @@ const sendEmail = (to, subject, body, html) => {
 
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.log('error sending message');
+      console.log(err);
     }else {
       console.log('Email sent', info);
     }

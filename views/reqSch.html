@@ -5,7 +5,8 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <title>schedule Work Order</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Schedule Work Order</title>
   </head>
   <body>
 <div class="container">
@@ -16,12 +17,12 @@
       <input name="_id" type="hidden" id="_id" value="">
     </div>
     <div class="form-group">
-      <label for="vendorName">Vendor Name</label>
-      <input class="form-control"type="text" name="vendorName" value="">
+      <label for="vendorName">Vendor Name</label><a class="err_msg valid" id="vendorName_e">Must be more than 5 charcters.</a>
+      <input class="form-control" type="text" name="vendorName" required minlength=5>
     </div>
     <div class="form-group">
       <label for="vendorNum">Mobile Number</label>
-      <input class="form-control" type="text" name="vendorNum" value="">
+      <input class="form-control" type="tel" name="vendorNum" required minlength=10 maxlength=14>
     </div>
     <div>
       <label for="custAvail">Customer Availability</label>
@@ -45,7 +46,7 @@
       <div id="avail6" class="form-check"></div>
       <div id="avail7" class="form-check"></div>
       <div id="availContact" class="form-check">
-        <label class="radio-inline"><input type="radio" name="optradio" value="vendorToContact">I will contact the tenant directly to schedual.</label>
+        <label class="radio-inline"><input type="radio" name="optradio" value="vendorToContact">I will contact the tenant directly to schedule.</label>
       </div>
     </div>
     <br>
@@ -53,10 +54,11 @@
       <label for="serviceNotes">Please add and instruction that the customer may require below</label>
       <textarea class="form-control" name="serviceNotes" rows="8" cols="80"></textarea>
     </div>
+    <a id="reqSchErr" class="err_msg valid">Please select a timeslot.</a>
     <button type="submit" name="SubmitButton">Submit</button>
   </form>
 </div>
 <script src="js/libs/moment.js"></script>
-  <script src="js/maintReq.js"></script>
+  <script src="js/reqSch.js"></script>
   </body>
 </html>
