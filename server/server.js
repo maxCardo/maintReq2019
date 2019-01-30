@@ -29,15 +29,18 @@ app.use(express.static(publicPath));
 // intTrigger('* * * * *', () => {
 //   console.log('call int trigger every min from server');
 // });
-console.log('host',host);
 
 app.get('/', (req, res) => {
   res.sendFile(views + '/index.html')
-})
+});
 
 app.get('/reqSch', (req, res) => {
   res.sendFile(views + '/reqSch.html');
-})
+});
+
+app.get('/vendorSignup', (req, res) => {
+  res.sendFile(views + '/vendorSignup.html');
+});
 
 app.post('/form', (req, res) => {
    insertDB(req.body, 'insert').then((record) => {
@@ -53,7 +56,6 @@ app.post('/form', (req, res) => {
    });
   res.sendFile(views + '/form.html');
 })
-
 
 app.post('/sch', (req, res) => {
   const getStatus = new Promise((resolve, reject) => {
@@ -74,6 +76,11 @@ app.post('/sch', (req, res) => {
  console.log('run last log');
  res.send('<h3>Thank You</h3>');
  // next step build forward work flow, confirm dave of, calder invites, flow for vendorWillContact reminders etc.
+});
+
+app.post('/addVendor', (req, res) => {
+  console.log(req.body);
+  res.sendFile(views + '/vendorSignup.html');
 });
 
 

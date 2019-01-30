@@ -25,8 +25,6 @@
 //
 // # this block pulls the environment variable from windows/linux
 
-console.log('connected to config file');
-
 const twlsid = process.env.TWLS_ID;
 const twlAuthToken = process.env.TWL_AUTH_TOKEN;
 const gmlAcct = process.env.GML_ACCT;
