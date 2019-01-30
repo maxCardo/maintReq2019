@@ -8,13 +8,13 @@ const {sendSMS} = require('./assets/twilio');
 const {sendEmail} = require('./assets/email');
 const {timeTrigger, intTrigger} = require('./assets/triggers');
 const {schTemplet} = require('./assets/templets/email-templet');
+const {host} = require('./config/creds');
 
 const publicPath = path.join(__dirname, '../public');
 const views = path.join(__dirname, '../views');
 const port = process.env.PORT || 3000;
 const app = express();
-// TODO: to send link to responseform. convert to env var
-const host = 'localhost:3000';
+// TODO: to send link to responseform. convert to env var;
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -29,6 +29,7 @@ app.use(express.static(publicPath));
 // intTrigger('* * * * *', () => {
 //   console.log('call int trigger every min from server');
 // });
+console.log('host',host);
 
 app.get('/', (req, res) => {
   res.sendFile(views + '/index.html')
@@ -42,9 +43,11 @@ app.post('/form', (req, res) => {
    insertDB(req.body, 'insert').then((record) => {
      const link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
      logDB(record._id, 'Work Order Created')
+     // TODO: choose vendor, grab contact info
      const emailTemp = schTemplet(record, link);
      sendEmail('adampoznanski@outlook.com',emailTemp.subject, emailTemp.body, emailTemp.html);
-     return record;
+     // TODO: if email fails to send
+     return record; //needed? can i remove "record" from line 50 and call req.body on 51
    }).then((record) => {
      logDB(record._id, 'email sent to vendor');
    });
