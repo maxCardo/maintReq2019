@@ -43,7 +43,7 @@ app.get('/vendorSignup', (req, res) => {
 });
 
 app.post('/form', (req, res) => {
-   insertDB(req.body, 'insert').then((record) => {
+   insertDB(req.body, 'firstReq').then((record) => {
      const link = `${host}/reqSch?sid=${record._id}&sd=${record.serviceDate}&sav=${record.avail}`
      logDB(record._id, 'Work Order Created')
      // TODO: choose vendor, grab contact info
@@ -79,7 +79,17 @@ app.post('/sch', (req, res) => {
 });
 
 app.post('/addVendor', (req, res) => {
-  console.log(req.body);
+  new Promise((resolve, reject) => {
+    const record = req.body;
+    const skillsObj = {};
+    for (var i = 1; i < req.body.skillSet.length; i++) {
+      skillsObj[req.body.skillSet[i]] = true
+    }
+    record.skillSet = skillsObj;
+    resolve(record);
+  }).then((record) => {
+    insertDB(record, 'vendors');
+  });
   res.sendFile(views + '/vendorSignup.html');
 });
 

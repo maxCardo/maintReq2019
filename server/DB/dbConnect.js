@@ -21,7 +21,7 @@ const dataBase = mlabDB;
 
 
 //insert record into DB
-const insertDB = (record) => {
+const insertDB = (record, collection) => {
   return new Promise(function(resolve, reject) {
     MongoClient.connect(dataBase, (err, client) => {
       if (err) {
@@ -30,7 +30,7 @@ const insertDB = (record) => {
       console.log('Connected to mongoDB');
       const db = client.db('crdo_req_test');
 
-      db.collection('firstReq').insertOne(record,(err, res) => {
+      db.collection(collection).insertOne(record,(err, res) => {
         if (err) {
           return console.log('Error: and error occurd on insertOne', err);
         }
