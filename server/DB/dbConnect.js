@@ -115,7 +115,8 @@ return new Promise(function(resolve, reject) {
 // }
 
 // -------------------------------get one vendor that matches service type ---------------------------------------
-const getVendor = (location, serviceType) => {
+const getVendor = (serviceType) => {
+  console.log('serviceType: ', serviceType);
   return new Promise((resolve, reject) => {
     MongoClient.connect(dataBase, (err, client) => {
       if (err) {
@@ -124,7 +125,6 @@ const getVendor = (location, serviceType) => {
       console.log('connected to mongoDB');
       const db = client.db('crdo_req_test');
       db.collection('vendors').findOne({'skillSet':{[serviceType]: true}}).then((value) => {
-        console.log(value);
         resolve(value);
       })
     })
