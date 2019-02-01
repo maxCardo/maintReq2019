@@ -116,11 +116,10 @@ return new Promise(function(resolve, reject) {
 
 // -------------------------------get one vendor that matches service type ---------------------------------------
 const getVendor = (serviceType) => {
-  console.log('serviceType: ', serviceType);
   return new Promise((resolve, reject) => {
     MongoClient.connect(dataBase, (err, client) => {
       if (err) {
-      return console.log('Error: problem connecting to mongoDB');
+      return console.log('Error: problem connecting to mongoDB getVendor');
       }
       console.log('connected to mongoDB');
       const db = client.db('crdo_req_test');
@@ -131,5 +130,20 @@ const getVendor = (serviceType) => {
   });
 }
 
+const getServiceOrder = (ID) => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(dataBase, (err, client) => {
+      if (err) {
+      return console.log('Error: problem connecting to mongoDB getServiceOrder');
+      }
+      console.log('connected to mongoDB');
+      const db = client.db('crdo_req_test');
+      db.collection('firstReq').findOne({_id:new ObjectID(ID)}).then((value) => {
+        resolve(value);
+      })
+    })
+  });
+}
 
-module.exports = {insertDB, updateDB, logDB, getVendor};
+
+module.exports = {insertDB, updateDB, logDB, getVendor, getServiceOrder};

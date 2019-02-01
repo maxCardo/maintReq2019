@@ -1,3 +1,4 @@
+const {getSchDate} = require('./../dateConversion');
 
 const schTemplet = (obj, link) => {
   return{
@@ -38,5 +39,37 @@ const schTemplet = (obj, link) => {
 
 };
 
+const notifyRes = (vendor, issue) => {
+  const schedualedTime = getSchDate(issue.serviceDate,vendor.optradio);
 
-module.exports = {schTemplet};
+  return{
+    subject:`Your Service Ticket For ${issue.serviceType} Has Been Accepted `,
+    body:
+    `
+      Your Service Ticket For ${issue.serviceType} Has Been Accepted
+
+      Vendor:  ${vendor.vendorName}
+      Vendor Number:  ${vendor.vendorNum}
+      Schedualed Time: ${schedualedTime}
+
+
+      Service Notes: ${vendor.serviceNotes}
+
+    `,
+    html:`
+      <h4>Your Service Ticket For ${issue.serviceType} Has Been Accepted</h4><br><br>
+
+      <p>Vendor:  ${vendor.vendorName}
+      <br>Vendor Number:  ${vendor.vendorNum}
+      <br>Schedualed Time: ${schedualedTime}
+      </p>
+      <br>
+      <br>
+      <p>Service Notes: ${vendor.serviceNotes}</p>.
+
+    `
+  };
+
+};
+
+module.exports = {schTemplet, notifyRes};
