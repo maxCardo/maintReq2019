@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const {insertDB,updateDB,logDB,getVendor, getServiceOrder} = require('./DB/dbConnect');
 const {sendSMS} = require('./assets/twilio');
 const {sendEmail} = require('./assets/email');
+const {postSlack} = require('./assets/slack');
 const {timeTrigger,intTrigger} = require('./assets/triggers');
 const {schTemplet, notifyRes} = require('./assets/templets/email-templet');
 const {host} = require('./config/creds');
@@ -46,7 +47,12 @@ app.get('/vendorSignup', (req, res) => {
 
 app.post('/form', (req, res) => {
   const request = JSON.stringify(req.body,null,2);
-  sendEmail('adampoznanski@outlook.com, 1214Wynne@gmail.com', `New Service Request Added For ${req.body.property}`,request, request);
+  postSlack(
+    `New Service Request Added For ${req.body.property}.
+      Unit: ${req.body.unitNum}
+      Service Type: ${req.body.serviceType}
+      Message: ${req.body.serviceDiscription}
+    `);
   insertDB(req.body, 'firstReq')
   .then(() => {
     logDB(req.body._id, 'Work Order Created');
@@ -54,12 +60,14 @@ app.post('/form', (req, res) => {
     return serviceType;
   }).then((serviceType) => {
     getVendor(serviceType).then((value) => {
+      console.log('value: ',value);
       const link = `${host}/reqSch?sid=${req.body._id}&sd=${req.body.serviceDate}&sav=${req.body.avail}`;
       const emailTemp = schTemplet(req.body, link);
       sendEmail(value.vendorEmail, emailTemp.subject, emailTemp.body, emailTemp.html);
-      //sendSMS() // to, body
+      sendSMS(value.vendorNum, `a new maintenance request has been emailed to you at ${value.vendorEmail}`)
       return value
     }).then((value) => {
+      postSlack(`${value.vendorName} has been assigned the ${req.body.serviceType} service order for ${req.body.property}`)
       logDB(req.body._id, `${value.vendorName} selected as vendor and email sent to ${value.vendorEmail}`)
     });
   });
@@ -84,7 +92,7 @@ app.post('/sch', (req, res) => {
       sendEmail(serviceOrder.email, emailTemp.subject, emailTemp.body, emailTemp.html);
       return serviceOrder
     }).then((serviceOrder) => {
-      sendEmail('adampoznanski@outlook.com, 1214Wynne@gmail.com', `Service Request Updated For ${serviceOrder.property} unit ${serviceOrder.unitNum}`,JSON.stringify(req.body), JSON.stringify(req.body));
+      postSlack(`Service Request Updated For ${serviceOrder.serviceType} @ ${serviceOrder.property} Unit ${serviceOrder.unitNum}. Status changed to ${serviceOrder.status}`)
     })
   })
   res.send('<h3>Thank You</h3>');
