@@ -13,6 +13,8 @@ const creds = require('./../config/creds');
 //const localDB = 'mongodb://localhost:27017/maintReq';
 
 const dataBase = creds.dataBase;
+const databaseUrlSplit = database.split('/');
+const dbName = databaseUrlSplit[3];
 
 
 //insert record into DB
@@ -23,7 +25,7 @@ const insertDB = (record, collection) => {
         return console.log('Error: problem connecting to mongoDB');
       }
       console.log('Connected to mongoDB');
-      const db = client.db('crdo_req_test');
+      const db = client.db(dbName);
 
       db.collection(collection).insertOne(record,(err, res) => {
         if (err) {
@@ -44,7 +46,7 @@ const updateDB = (id,record) => {
         return console.log('Error: problem connecting to mongoDB');
       }
       console.log('connected to mongoDB');
-      const db = client.db('crdo_req_test');
+      const db = client.db(dbName);
 
       db.collection('firstReq').findOneAndUpdate({
         _id: new ObjectID(id)
@@ -70,7 +72,7 @@ return new Promise(function(resolve, reject) {
       return console.log('Error: problem connecting to mongoDB');
     }
     console.log('connected to mongoDB');
-    const db = client.db('crdo_req_test');
+    const db = client.db(dbName);
 
     db.collection('firstReq').findOneAndUpdate({
       _id: new ObjectID(id)
@@ -117,7 +119,7 @@ const getVendor = (serviceType) => {
       return console.log('Error: problem connecting to mongoDB getVendor');
       }
       console.log('connected to mongoDB');
-      const db = client.db('crdo_req_test');
+      const db = client.db(dbName);
       db.collection('vendors').findOne({'skillSet':{[serviceType]: true}}).then((value) => {
         resolve(value);
       })
@@ -132,7 +134,7 @@ const getServiceOrder = (ID) => {
       return console.log('Error: problem connecting to mongoDB getServiceOrder');
       }
       console.log('connected to mongoDB');
-      const db = client.db('crdo_req_test');
+      const db = client.db(dbName);
       db.collection('firstReq').findOne({_id:new ObjectID(ID)}).then((value) => {
         resolve(value);
       })
