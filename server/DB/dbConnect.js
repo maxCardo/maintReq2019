@@ -8,16 +8,11 @@
 // NOTE: Mongo DB native Documantation: http://mongodb.github.io/node-mongodb-native/
 
 const {MongoClient, ObjectID} = require('mongodb');
+const creds = require('./../config/creds');
 
-//db connection
-//dep
-const herkuDB = 'mongodb://heroku_jq2k8b5m:oteuiavf5t3k8t5olvdsp0e49h@ds145694.mlab.com:45694/heroku_jq2k8b5m';
-//dev
-const mlabDB = 'mongodb://user:mcgtest2018@ds145704.mlab.com:45704/crdo_req_test';
-//test
-const localDB = 'mongodb://localhost:27017/maintReq';
+//const localDB = 'mongodb://localhost:27017/maintReq';
 
-const dataBase = mlabDB;
+const dataBase = creds.dataBase;
 
 
 //insert record into DB

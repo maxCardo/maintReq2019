@@ -33,6 +33,7 @@ const smtpPass = process.env.SMTP_PASS;
 const smtpAcct = process.env.SMTP_ACCT;
 const smtpHost = process.env.SMTP_HOST;
 const host = process.env.APP_HOST;
+const dataBase = process.env.MONGODB_URI
 
 
-module.exports = {twlAuthToken, twlsid, gmlAcct, gmlPass, smtpPass, smtpHost, smtpAcct, host};
+module.exports = {twlAuthToken, twlsid, gmlAcct, gmlPass, smtpPass, smtpHost, smtpAcct, host, dataBase};
