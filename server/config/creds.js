@@ -20,12 +20,10 @@
 // # export GML_ACCT="yourgmailaccount"
 // # export GML_PASS="yourgmailpass"
 // # Hit ctrl+x, then y to save, followed by enter to confirm file name
-// # Close and reopen terminal 
+// # Close and reopen terminal
 // # Type printenv in terminal to ensure the vars have been properly set
 //
 // # this block pulls the environment variable from windows/linux
-
-console.log('connected to config file');
 
 const twlsid = process.env.TWLS_ID;
 const twlAuthToken = process.env.TWL_AUTH_TOKEN;
@@ -34,6 +32,7 @@ const gmlPass = process.env.GML_PASS;
 const smtpPass = process.env.SMTP_PASS;
 const smtpAcct = process.env.SMTP_ACCT;
 const smtpHost = process.env.SMTP_HOST;
+const host = process.env.APP_HOST;
 
 
-module.exports = {twlAuthToken, twlsid, gmlAcct, gmlPass, smtpPass, smtpHost, smtpAcct};
+module.exports = {twlAuthToken, twlsid, gmlAcct, gmlPass, smtpPass, smtpHost, smtpAcct, host};

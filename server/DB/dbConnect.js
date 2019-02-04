@@ -21,7 +21,7 @@ const dataBase = mlabDB;
 
 
 //insert record into DB
-const insertDB = (record) => {
+const insertDB = (record, collection) => {
   return new Promise(function(resolve, reject) {
     MongoClient.connect(dataBase, (err, client) => {
       if (err) {
@@ -30,7 +30,7 @@ const insertDB = (record) => {
       console.log('Connected to mongoDB');
       const db = client.db('crdo_req_test');
 
-      db.collection('firstReq').insertOne(record,(err, res) => {
+      db.collection(collection).insertOne(record,(err, res) => {
         if (err) {
           return console.log('Error: and error occurd on insertOne', err);
         }
@@ -97,26 +97,53 @@ return new Promise(function(resolve, reject) {
 });
 };
 
-const getVendor = (location, serviceType) => {
-  return new Promise(function(resolve, reject) {
-    // MongoClient.connect(dataBase, (err, client) => {
-    //   if (err) {
-    //   return console.log('Error: problem connecting to mongoDB');
-    //   }
-    //   console.log('connected to mongoDB');
-    //   const db = client.db('crdo_req_test');
-    //
-    //
-    //     //find array of vendors by location
-    //   db.collection('vendors').find({
-    //     //location????
-    //   }.then((value) => {
-    //     console.log(value);
-    //   })
-    //   client.close();
-    // });
+// // ---------------------------get all records where service type matches-------------------------------------
+// const getVendor = (location, serviceType) => {
+//   return new Promise((resolve, reject) => {
+//     MongoClient.connect(dataBase, (err, client) => {
+//       if (err) {
+//       return console.log('Error: problem connecting to mongoDB');
+//       }
+//       console.log('connected to mongoDB');
+//       const db = client.db('crdo_req_test');
+//       db.collection('vendors').find({'skillSet':{[serviceType]:true}}).toArray().then((value) => {
+//         console.log(value);
+//         resolve(value);
+//       })
+//     })
+//   });
+// }
+
+// -------------------------------get one vendor that matches service type ---------------------------------------
+const getVendor = (serviceType) => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(dataBase, (err, client) => {
+      if (err) {
+      return console.log('Error: problem connecting to mongoDB getVendor');
+      }
+      console.log('connected to mongoDB');
+      const db = client.db('crdo_req_test');
+      db.collection('vendors').findOne({'skillSet':{[serviceType]: true}}).then((value) => {
+        resolve(value);
+      })
+    })
   });
-};
+}
+
+const getServiceOrder = (ID) => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(dataBase, (err, client) => {
+      if (err) {
+      return console.log('Error: problem connecting to mongoDB getServiceOrder');
+      }
+      console.log('connected to mongoDB');
+      const db = client.db('crdo_req_test');
+      db.collection('firstReq').findOne({_id:new ObjectID(ID)}).then((value) => {
+        resolve(value);
+      })
+    })
+  });
+}
 
 
-module.exports = {insertDB, updateDB, logDB, getVendor};
+module.exports = {insertDB, updateDB, logDB, getVendor, getServiceOrder};
