@@ -60,7 +60,6 @@ app.post('/form', (req, res) => {
     return serviceType;
   }).then((serviceType) => {
     getVendor(serviceType).then((value) => {
-      console.log('value: ',value);
       const link = `${host}/reqSch?sid=${req.body._id}&sd=${req.body.serviceDate}&sav=${req.body.avail}`;
       const emailTemp = schTemplet(req.body, link);
       sendEmail(value.vendorEmail, emailTemp.subject, emailTemp.body, emailTemp.html);

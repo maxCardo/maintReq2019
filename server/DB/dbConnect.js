@@ -13,9 +13,8 @@ const creds = require('./../config/creds');
 //const localDB = 'mongodb://localhost:27017/maintReq';
 
 const dataBase = creds.dataBase;
-const databaseUrlSplit = database.split('/');
+const databaseUrlSplit = dataBase.split('/');
 const dbName = databaseUrlSplit[3];
-
 
 //insert record into DB
 const insertDB = (record, collection) => {
@@ -40,7 +39,6 @@ const insertDB = (record, collection) => {
 
 const updateDB = (id,record) => {
   return new Promise(function(resolve, reject) {
-    console.log('record', record);
     MongoClient.connect(dataBase, (err, client) => {
       if (err) {
         return console.log('Error: problem connecting to mongoDB');
