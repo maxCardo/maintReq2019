@@ -45,7 +45,7 @@ $(document).ready(()=>{
         pattern = /^[a-z][a-z\-]*[a-z]$/i;
         break;
       case 'phone':
-        pattern = /^([2-9][0-9]{2}[\-]){2}[0-9]{4}$/;
+        pattern = /^([2-9][0-9]{2}[\-]{0,1}){2}[0-9]{4}$/;
         break;
       case 'email':
         pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -90,7 +90,7 @@ $(document).ready(()=>{
       if($.trim($('#serviceDiscription').val()).length < 15) {
         $('#serviceDiscription_e').removeClass("valid");
         valid = false;
-      }; 
+      };
 
       if($('#svcType').val() == "") {
         $('#serviceType_e').removeClass("valid");
@@ -137,7 +137,7 @@ $(document).ready(()=>{
     };
     return true;
   });
-  
+
   // //Drag select mouse behavior on table
   /*
   $(() => {
